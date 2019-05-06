@@ -284,5 +284,17 @@
   "motus_rpt": {
     "job-name": "motus_rpt",
     "output": "clusterlog/motus_rpt.%j.out"
+  },
+  "metaphlan2_run_1":{
+    "job-name": "metaphlan2_run_1",
+    "output": "clusterlog/metaphlan2_run_1.%j.out",
+    "partition": "big",
+    "cpus-per-task": 12,
+    "mem": "64000M",
+    "time": "24:00:00"
+  },
+  "metaphlan2_rpt": {
+    "job-name": "metaphlan2_rpt",
+    "output": "clusterlog/metaphlan2_rpt.%j.out"
   }
 }

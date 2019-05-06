@@ -1,0 +1,11 @@
+# Output and working directory (all other directories below - if not absolute - are relative to this one)
+workdir: "sampledata/results/"
+dbdir: "../databases/"
+
+samples:
+  sample_data_archaea_bacteria:
+     fq1: "../files/reads/new_sample_data.1.fq.gz"
+     fq2: "../files/reads/new_sample_data.2.fq.gz"
+
+gzipped: 1
+threads: 1

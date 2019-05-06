@@ -1,0 +1,24 @@
+# Run tool
+rule metaphlan2_run_1:
+	input:
+		fq1="{sample}/reads/metaphlan2.1.fq",
+		dbcheck=config['dbdir'] + "{database}/metaphlan2_db_check.done"
+	output:	"{sample}/metaphlan2/{database}/{sample}.results.txt",
+		temp("{sample}/metaphlan2/{database}/{sample}.bowtie2.bz2")
+	log: "{sample}/log/{database}/metaphlan2_run_1.log"
+	benchmark: "{sample}/log/{database}/metaphlan2_run_1.time"
+	threads: config["threads"]
+	conda: srcdir("../envs/metaphlan2.yaml")
+	params: reads_cmd = lambda wildcards: wildcards.sample + "/reads/metaphlan2.1.fq," + wildcards.sample + "/reads/metaphlan2.2.fq" if "fq2" in config["samples"][wildcards.sample] else wildcards.sample + "/reads/metaphlan2.1.fq"
+	shell: "{config[tool_alt_path][metaphlan2]}metaphlan2.py {params.reads_cmd} --input_type fastq --bowtie2out {output[1]} --nproc {threads} > {output[0]} 2> {log}"
+
+# Generate output (check supported formats)
+rule metaphlan2_rpt:
+	input: "{sample}/metaphlan2/{database}/{sample}.results.txt"
+	output: "{sample}/profiles/{database}/metaphlan2.profile.out"
+	log: "{sample}/log/{database}/metaphlan2_rpt.log"
+	benchmark: "{sample}/log/{database}/metaphlan2_rpt.time"
+	shell:
+		"""
+		awk '{{if(NR>1){{n=split($1,a,"|"); if(substr(a[n],1,1) == "k"){{rank="kingdom"; identifier=substr(a[n],4);}}; if(substr(a[n],1,1) == "p"){{rank="phylum"; identifier=substr(a[n],4);}} if(substr(a[n],1,1) == "c"){{rank="class"; identifier=substr(a[n],4);}} if(substr(a[n],1,1) == "o"){{rank="order"; identifier=substr(a[n],4);}} if(substr(a[n],1,1) == "f"){{rank="family"; identifier=substr(a[n],4);}} if(substr(a[n],1,1) == "g"){{rank="genus"; identifier=substr(a[n],4);}} if(substr(a[n],1,1) == "s"){{rank="species"; identifier=substr(a[n],4);}} if(substr(a[n],1,1) == "u"){{rank="unknown"; identifier=a[n];}}; gsub("_", " ", identifier); print rank "\t" identifier "\t" $2}}}}' {input} >> {output} 2>> {log}
+		"""

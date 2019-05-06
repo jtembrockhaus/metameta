@@ -2,8 +2,8 @@ default_val = {
                'threads': 1,
                'gzipped': 0,
                'keepfiles': 0,		   
-			   'tools': {"clark": "b", "dudes": "p", "gottcha": "p", "kaiju": "b", "kraken": "b", "motus": "p"},
-			   'tool_alt_path': {"clark": "", "dudes": "", "gottcha": "", "kaiju": "", "kraken": "", "motus": "", "trimmomatic": "", "spades": "", "bowtie2": "", "krona": "", "metametamerge": ""},
+			   'tools': {"clark": "b", "dudes": "p", "gottcha": "p", "kaiju": "b", "kraken": "b", "motus": "p", "metaphlan2": "p"},
+			   'tool_alt_path': {"clark": "", "dudes": "", "gottcha": "", "kaiju": "", "kraken": "", "motus": "", "trimmomatic": "", "spades": "", "bowtie2": "", "krona": "", "metametamerge": "", "metaphlan2": ""},
 			   'trimming': 0,
 			   'desiredminlen': 70,
 			   'strictness': 0.8,
@@ -26,7 +26,8 @@ preconfigdbs = {'archaea_bacteria_201503': {
 					"gottcha": "https://zenodo.org/record/819341/files/gottcha_bac_arc_v1.tar.gz", 
 					"kaiju": "https://zenodo.org/record/819425/files/kaiju_bac_arc_v1.tar.gz", 
 					"kraken": "https://zenodo.org/record/819363/files/kraken_bac_arc_v1.tar.gz", 
-					"motus": "https://zenodo.org/record/819365/files/motus_bac_arc_v1.tar.gz"
+					"motus": "https://zenodo.org/record/819365/files/motus_bac_arc_v1.tar.gz",
+					"metaphlan2": "https://zenodo.org/record/2668464/files/metaphlan2_bac_arc_v1.tar.gz"
 				},
 			   'fungi_viral_201709': {
 			   		"clark": "https://zenodo.org/record/1044318/files/clark_fun-vir_refseq-cg_201709.tar.gz", 

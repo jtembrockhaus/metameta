@@ -1,5 +1,5 @@
 # Output and working directory (all other directories below, if not absolute, are relative to this one)
-workdir: "/home/user/folder/results/" 
+workdir: "/home/user/folder/results/"
 
 # Database output directory (Tip: create this folder in a common directory so it could be used for other runs as well as other users)
 dbdir: "/home/user/folder/databases/"
@@ -20,6 +20,7 @@ tools:
     kaiju: b
     kraken: b
     motus: p
+    metaphlan2: p
 
 # Databases ("archaea_bacteria_201503" is the default.)
 databases:
@@ -33,7 +34,7 @@ custom_database:
     kaiju: "/path/reference/sequences/gbff/"
     kraken: "/path/reference/sequences/fna_gi/"
 
-### MetaMeta Pipeline ### 
+### MetaMeta Pipeline ###
 # Number of threads for each tool (distributed among the number of cores defined by main parameter --cores). Default: 1
 threads: 1
 # Gzipped input files (0: not gzipped / 1: gzipped). Default: 0
@@ -41,7 +42,7 @@ gzipped: 0
 # Keep intermediate files (database, reads and output) (0: do not keep files / 1: keep all files). Default: 0
 keepfiles: 0
 
-### Trimming ### 
+### Trimming ###
 # Trimmomatic (0: off / 1: on). Default: 0
 trimming: 0
 # Trimmomatic parameter desiredminlen (minimun desired length). Default: 70
@@ -88,3 +89,4 @@ tool_alt_path:
     bowtie2: ""
     krona: ""
     metametamerge: ""
+    metaphlan2: ""

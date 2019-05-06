@@ -1,0 +1,5 @@
+channels:
+ - bioconda
+dependencies:
+ - conda-build 3.17.8
+ - metaphlan2

@@ -88,12 +88,6 @@
     "job-name": "clark_db_custom_1",
     "output": "clusterlog/clark_db_custom_1.%j.out"
   },
-  "clark_db_custom_1_1": {
-    "job-name": "clark_db_custom_1_1",
-    "output": "clusterlog/clark_db_custom_1_1.%j.out",
-    "partition": "small",
-    "time": "24:00:00"
-  },
   "clark_db_custom_2": {
     "job-name": "clark_db_custom_2",
     "output": "clusterlog/clark_db_custom_2.%j.out",
@@ -128,7 +122,7 @@
     "partition": "big",
     "cpus-per-task": 12,
     "mem": "64000M",
-    "time": "72:00:00"
+    "time": "24:00:00"
   },
   "clark_rpt": {
     "job-name": "clark_rpt",
@@ -255,7 +249,7 @@
     "partition": "big",
     "cpus-per-task": 12,
     "mem": "64000M",
-    "time": "72:00:00"
+    "time": "24:00:00"
   },
   "kraken_db_3": {
     "job-name": "kraken_db_3",

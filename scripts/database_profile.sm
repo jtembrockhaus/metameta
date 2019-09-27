@@ -9,6 +9,6 @@ rule database_profile:
 	threads: config["threads"]
 	shell:
 		"""
-		cat {input.db_accession} | xargs --max-procs={threads} -I '{{}}' bash {acc2tab_path} '{{}}' > {output.db_tax} 2> {log}
+		{acc2tab_path} -i {input.db_accession} > {output.db_tax} 2> {log}
 		{tab2count_path} {output.db_tax} > {output.db_profile} 2>> {log}
 		"""

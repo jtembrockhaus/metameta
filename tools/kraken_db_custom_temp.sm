@@ -16,28 +16,22 @@ rule kraken_db_custom_1:
 
 rule kraken_db_custom_2:
         input: taxdump = ancient(config['dbdir'] + "taxonomy/taxdump.tar.gz"),
-                        nucl_gb = ancient(config['dbdir'] + "taxonomy/nucl_gb.accession2taxid.gz"),
-                        nucl_wgs = ancient(config['dbdir'] + "taxonomy/nucl_wgs.accession2taxid.gz")
         output: nodes = config['dbdir'] + "{database}/kraken_db/taxonomy/nodes.dmp",
-                        names = config['dbdir'] + "{database}/kraken_db/taxonomy/names.dmp",
-                        nucl_gb_unzip = temp(config['dbdir'] + "{database}/kraken_db/taxonomy/nucl_gb.accession2taxid"),
-                        nucl_wgs_unzip = temp(config['dbdir'] + "{database}/kraken_db/taxonomy/nucl_wgs.accession2taxid")
+                        names = config['dbdir'] + "{database}/kraken_db/taxonomy/names.dmp"
         log: config['dbdir'] + "{database}/log/kraken_db_custom_2.log"
         benchmark: config['dbdir'] + "{database}/log/kraken_db_custom_2.time"
         shell:
                 """
                 mkdir -p {config[dbdir]}{wildcards.database}/kraken_db/taxonomy/
                 tar -zxvf {input.taxdump} -C {config[dbdir]}{wildcards.database}/kraken_db/taxonomy nodes.dmp names.dmp > {log} 2>&1
-                gzip -dkc {input.nucl_gb} > {output.nucl_gb_unzip} 2> {log}
-                gzip -dkc {input.nucl_wgs} > {output.nucl_wgs_unzip} 2> {log} 
                 """
 				
 rule kraken_db_custom_3:
         input: config['dbdir'] + "{database}/kraken_db/library/",
                         config['dbdir'] + "{database}/kraken_db/taxonomy/nodes.dmp",
                         config['dbdir'] + "{database}/kraken_db/taxonomy/names.dmp",
-			config['dbdir'] + "{database}/kraken_db/taxonomy/nucl_gb.accession2taxid",
-			config['dbdir'] + "{database}/kraken_db/taxonomy/nucl_wgs.accession2taxid"
+			nucl_gb = ancient(config['dbdir'] + "taxonomy/nucl_gb.accession2taxid.gz"),
+			nucl_wgs = ancient(config['dbdir'] + "taxonomy/nucl_wgs.accession2taxid.gz")
         output: config['dbdir'] + "{database}/kraken_db/database.idx",
                         config['dbdir'] + "{database}/kraken_db/database.kdb"
         log: config['dbdir'] + "{database}/log/kraken_db_custom_3.log"	
@@ -55,7 +49,7 @@ rule kraken_db_custom_profile:
         output: temp(config['dbdir'] + "{database}/kraken.dbaccession.out")
         log: config['dbdir'] + "{database}/log/kraken_db_custom_profile.log"
         benchmark: config['dbdir'] + "{database}/log/kraken_db_custom_profile.time"
-        shell: "grep -h '^>' {input}added/*.fna | cut -d ' ' -f 1 | sed 's/>//g' > {output} 2> {log}"
+        shell: "cat {input}added/*.fna | grep '>' | grep -o '^[^ ]*' | cut -d '|' -f 4 > {output} 2> {log}"
 
 rule kraken_db_custom_check:
         input: ancient(config['dbdir'] + "{database}/kraken.dbprofile.out"),

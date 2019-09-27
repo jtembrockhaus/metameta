@@ -3,3 +3,4 @@ channels:
 dependencies:
  - bowtie2=2.3.0
  - dudes=0.08
+ - numpy=1.16.1

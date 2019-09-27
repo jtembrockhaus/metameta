@@ -1,0 +1,18 @@
+rule kraken2_run_1:
+	input:
+		fq1="{sample}/reads/kraken2.1.fq",
+		dbcheck=config['dbdir'] + "{database}/kraken2_db_check.done"
+	output:	"{sample}/kraken2/{database}/{sample}.results.out"
+	log: "{sample}/log/{database}/kraken2_run_1.log"
+	benchmark: "{sample}/log/{database}/kraken2_run_1.time"
+	threads: config["threads"]
+	conda: srcdir("../envs/kraken2.yaml")
+	params: reads_cmd = lambda wildcards: "--paired " + wildcards.sample + "/reads/kraken2.1.fq " + wildcards.sample + "/reads/kraken2.2.fq" if "fq2" in config["samples"][wildcards.sample] else wildcards.sample + "/reads/kraken2.1.fq"
+	shell: "{config[tool_alt_path][kraken2]}kraken2 --db {config[dbdir]}{wildcards.database}/kraken2_db/ --output {output} --threads {threads} {params.reads_cmd} > {log} 2>&1"
+
+rule kraken2_rpt:
+	input: "{sample}/kraken2/{database}/{sample}.results.out"
+	output: "{sample}/profiles/{database}/kraken2.profile.out"
+	log: "{sample}/log/{database}/kraken2_rpt.log"
+	benchmark: "{sample}/log/{database}/kraken2_rpt.time"
+	shell: """awk -F "\t" '{{if($1=="C") print $2"\t"$3"\t"$4}}' {input} > {output} 2> {log}"""

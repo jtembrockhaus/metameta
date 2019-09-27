@@ -1,5 +1,4 @@
 channels:
  - bioconda
 dependencies:
- - kraken=1.1.1
- - jellyfish=1.1.12
+ - kraken2=2.0.8_beta

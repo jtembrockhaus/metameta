@@ -88,9 +88,17 @@
     "job-name": "clark_db_custom_1",
     "output": "clusterlog/clark_db_custom_1.%j.out"
   },
+  "clark_db_custom_1_1": {
+    "job-name": "clark_db_custom_1_1",
+    "output": "clusterlog/clark_db_custom_1_1.%j.out",
+    "partition": "small",
+    "time": "24:00:00"
+  },
   "clark_db_custom_2": {
     "job-name": "clark_db_custom_2",
-    "output": "clusterlog/clark_db_custom_2.%j.out"
+    "output": "clusterlog/clark_db_custom_2.%j.out",
+    "partition": "small",
+    "time": "24:00:00"
   },
   "clark_db_custom_3": {
     "job-name": "clark_db_custom_3",
@@ -120,7 +128,7 @@
     "partition": "big",
     "cpus-per-task": 12,
     "mem": "64000M",
-    "time": "24:00:00"
+    "time": "72:00:00"
   },
   "clark_rpt": {
     "job-name": "clark_rpt",
@@ -131,7 +139,7 @@
     "output": "clusterlog/dudes_db_custom_1.%j.out",
     "partition": "big",
     "cpus-per-task": 12,
-    "mem": "64000M",
+    "mem": "100000M",
     "time": "24:00:00"
   },
   "dudes_db_custom_2": {
@@ -247,7 +255,7 @@
     "partition": "big",
     "cpus-per-task": 12,
     "mem": "64000M",
-    "time": "24:00:00"
+    "time": "72:00:00"
   },
   "kraken_db_3": {
     "job-name": "kraken_db_3",
@@ -272,6 +280,54 @@
   "kraken_rpt": {
     "job-name": "kraken_rpt",
     "output": "clusterlog/kraken_rpt.%j.out"
+  },
+  "kraken2_db_custom_1": {
+    "job-name": "kraken2_db_custom_1",
+    "output": "clusterlog/kraken2_db_custom_1.%j.out",
+    "partition": "small",
+    "cpus-per-task": 12,
+    "mem": "1000M",
+    "time": "24:00:00"
+  },
+  "kraken2_db_custom_2": {
+    "job-name": "kraken2_db_custom_2",
+    "output": "clusterlog/kraken2_db_custom_2.%j.out"
+  },
+  "kraken2_db_custom_3": {
+    "job-name": "kraken2_db_custom_3",
+    "output": "clusterlog/kraken2_db_custom_3.%j.out",
+    "partition": "big",
+    "cpus-per-task": 12,
+    "mem": "100000M",
+    "time": "24:00:00"
+  },
+  "kraken2_db_custom_profile": {
+    "job-name": "kraken2_db_custom_profile",
+    "output": "clusterlog/kraken2_db_custom_profile.%j.out"
+  },
+  "kraken2_db_custom_check": {
+    "job-name": "kraken2_db_custom_check",
+    "output": "clusterlog/kraken2_db_custom_check.%j.out"
+  },
+  "kraken2_db_custom_clean": {
+    "job-name": "kraken2_db_custom_clean",
+    "output": "clusterlog/kraken2_db_custom_clean.%j.out",
+    "partition": "big",
+    "cpus-per-task": 12,
+    "mem": "64000M",
+    "time": "24:00:00"
+  },  
+  "kraken2_run_1": {
+    "job-name": "kraken2_run_1",
+    "output": "clusterlog/kraken2_run_1.%j.out",
+    "partition": "big",
+    "cpus-per-task": 12,
+    "mem": "128000M",
+    "time": "24:00:00"
+  },
+  "kraken2_rpt": {
+    "job-name": "kraken2_rpt",
+    "output": "clusterlog/kraken2_rpt.%j.out"
   },
   "motus_run_1": {
     "job-name": "motus_run_1",

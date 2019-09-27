@@ -53,6 +53,7 @@ rule dudes_db_custom_profile:
 	output: temp(config['dbdir'] + "{database}/dudes.dbaccession.out")
 	log: config['dbdir'] + "{database}/log/dudes_db_custom_profile.log"
 	benchmark: config['dbdir'] + "{database}/log/dudes_db_custom_profile.time"
+	conda: srcdir("../envs/dudes.yaml")
 	shell: """python3 -c 'import numpy as np; npzfile = np.load("{input.npz}"); print("\\n".join(npzfile["refids_lookup"].item().keys()))' | sed 's/>//g' > {output} 2> {log}"""
 
 rule dudes_db_custom_check:

@@ -18,25 +18,24 @@ rule clark_db_custom_2:
 	input: 	taxdump = ancient(config["dbdir"] + "taxonomy/taxdump.tar.gz"),
 			nucl_gb = ancient(config['dbdir'] + "taxonomy/nucl_gb.accession2taxid.gz"),
 			nucl_wgs = ancient(config['dbdir'] + "taxonomy/nucl_wgs.accession2taxid.gz")
-	output: taxonomy = temp(config['dbdir'] + "{database}/clark_db/taxonomy/"),
-			nucl_accss = temp(config['dbdir'] + "{database}/clark_db/taxonomy/nucl_accss"),
+	output: nucl_accss = temp(config['dbdir'] + "{database}/clark_db/taxonomy/nucl_accss"),
 			taxondata = temp(touch(config['dbdir'] + "{database}/clark_db/.taxondata"))
 	log: config['dbdir'] + "{database}/log/clark_db_custom_2.log"
 	benchmark: config['dbdir'] + "{database}/log/clark_db_custom_2.time"
+	params: taxonomy = config['dbdir'] + "{database}/clark_db/taxonomy/"
 	shell:
 		"""
         # Emulate the script: opt/clark/download_taxondata.sh 
     	#	 cat nucl_gb.accession2taxid > ./nucl_accss
         #    cat nucl_wgs.accession2taxid >> ./nucl_accss
         #    touch ../.taxondata
-		mkdir -p {output.taxonomy}
+		mkdir -p {params.taxonomy}
 		gzip -d -c {input.nucl_gb} {input.nucl_wgs} > {output.nucl_accss} 2> {log}
 		tar -zxvf {input.taxdump} -C {config[dbdir]}{wildcards.database}/clark_db/taxonomy/ >> {log} 2>&1
 		"""    
 
 rule clark_db_custom_3:
 	input: sep_seq_folder = config['dbdir'] + "{database}/clark_db/Custom/",
-			taxonomy = config['dbdir'] + "{database}/clark_db/taxonomy/",
 			taxondata = config['dbdir'] + "{database}/clark_db/.taxondata",
 			nucl_accss = config['dbdir'] + "{database}/clark_db/taxonomy/nucl_accss"
 	output: targets = config['dbdir'] + "{database}/clark_db/targets.txt",
@@ -62,6 +61,7 @@ rule clark_db_custom_3:
 		# Remove custom_0 in case it exists to force execution of the next rule
 		rm -rfv ${{abs_db}}/custom_0/ >> ${{abs_log}}/clark_db_custom_3.log 2>&1
 		"""	
+
 
 rule clark_db_custom_4:
 	input: sep_seq_folder = config['dbdir'] + "{database}/clark_db/Custom/",
@@ -97,4 +97,4 @@ rule clark_db_custom_check:
 			ancient(config['dbdir'] + "{database}/clark_db/targets.txt")
 	output: db_check = touch(config['dbdir'] + "{database}/clark_db_check.done")
 	log: config['dbdir'] + "{database}/log/clark_db_custom_check.log"
-	benchmark: config['dbdir'] + "{database}/log/clark_db_custom_check.time"
+benchmark: config['dbdir'] + "{database}/log/clark_db_custom_check.time"
